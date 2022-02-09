@@ -3,12 +3,13 @@
     "private": true,
     "scripts": {
         "dev": "nest start --watch",
-        "build": "nest build",
+        "build": "rimraf dist/* && nest build",
         "start": "node dist/main",
         "validate": "tsc --noEmit",
         "git:commit": "git-cz",
         "prisma": "prisma",
         "prisma:generate": "pnpm prisma -- generate",
+        "prisma:studio": "pnpm prisma -- studio",
         "prisma:migrate": "pnpm prisma -- migrate",
         "prisma:migrate:create": "pnpm prisma:migrate -- dev",
         "prisma:migrate:run": "pnpm prisma:migrate -- deploy",
@@ -19,7 +20,7 @@
         "lint": "pnpm eslint:all",
         "format": "pnpm eslint:fix:all",
         "ci": "pnpm validate && pnpm lint",
-        "prepare": "husky install"
+        "prepare": "pnpm prisma:generate && husky install"
     },
     "config": {
         "commitizen": {
@@ -42,6 +43,9 @@
             "pnpm-lock.yaml"
         ]
     },
+    "prisma": {
+        "schema": "src/prisma/schema.prisma"
+    },
     "devDependencies": {
         "@citrus-linting/eslint-config": "0.18.2",
         "@citrus-linting/prettier-config": "0.5.0",
@@ -62,6 +66,7 @@
         "lint-staged": "12.3.3",
         "prettier": "2.5.1",
         "prisma": "3.9.0",
+        "rimraf": "3.0.2",
         "source-map-support": "0.5.21",
         "typescript": "4.5.5"
     },
